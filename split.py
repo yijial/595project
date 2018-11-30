@@ -9,11 +9,17 @@ vocabulary = []
 input_file = open("../review_.json","r") # txt file input
 reviews = []
 result = []
+business_list = {}
 p = preprocess()
 data = json.loads(input_file.read())
+i=0
 for line in data:
 	text = line["text"]
-	result.append([line["useful"], line["review_count"]])
+	if line["business_id"] not in business_list:
+		business_list[line["business_id"]] = i
+		i+=1
+	result.append([business_list[line["business_id"]], line["useful"], line["review_count"]])
+	
 	tokens = p.preprocess(text)
 	for token in tokens: 
 		if token not in vocabulary:
@@ -31,7 +37,6 @@ for tokens in reviews:
 	for word in vocabulary:
 		temp.append(count[word])
 	num_words = sum(temp)
-	# bag_words.append(temp/num_words)
 	temp = np.array(temp)
 	temp = temp/num_words
 	result[i].extend(temp)

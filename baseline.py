@@ -48,5 +48,4 @@ for city, data in filteredData.items():
 		review_array = [review['useful'], user_score[review['user_id']]/user_total[review['user_id']], business_list[review['business_id']]]
 		result.append(review_array)
 	result = np.array(result)
-	print(result)
 	np.save('review_'+city+'.npy', result)
