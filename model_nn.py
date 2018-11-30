@@ -13,12 +13,14 @@ def main(file):
 	# print(features.shape)
 
 	# dimensions of the nn
-	n_in, n_h, n_out = features.shape[1], 100, 1
+	n_in, n_h1, n_h2, n_out = features.shape[1], 100, 100, 1
 	# condition of converge
 	thres = 0.0001
-	model = nn.Sequential(nn.Linear(n_in, n_h),
+	model = nn.Sequential(nn.Linear(n_in, n_h1),
 			nn.ReLU(),
-			nn.Linear(n_h, n_out),
+			nn.Linear(n_h1, n_h2),
+			nn.Tanh(),
+			nn.Linear(n_h2, n_out),
 			nn.Sigmoid())
 
 	criterion = torch.nn.MSELoss()
