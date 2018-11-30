@@ -27,7 +27,7 @@ with open(review_file, 'r') as f:
 
 			if city not in filteredData:
 				filteredData[city] = []
-			output = {'text': text, 'useful': useful, 'review_count': review_count}
+			output = {'text': text, 'useful': useful, 'review_count': review_count, 'business_id': business_id}
 			filteredData[city].append(output)
 
 		# data.append(json.loads(line))
