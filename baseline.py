@@ -23,11 +23,11 @@ with open(review_file, 'r') as f:
 		business_id = review['business_id']
 
 		useful = review['useful']
-		if user_id not in user_total:
-			user_total[user_id] = 0
-		user_total[user_id]+=1
 		
 		if useful > 0 and business_id in businesses:
+			if user_id not in user_total:
+				user_total[user_id] = 0
+			user_total[user_id]+=1
 			if user_id not in user_score:
 				user_score[user_id] = 0
 			user_score[user_id]+=useful
