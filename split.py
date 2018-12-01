@@ -45,7 +45,7 @@ for tokens in reviews:
 	temp = np.array(temp)
 	temp = temp/num_words
 	result[i].extend(temp)
-	if result[i][0] not in city_split:
+	if result[i][0] not in business_split:
 		business_split[result[i][0]] = []
 	business_split[result[i][0]].append(result[i])
 	i+=1
@@ -53,7 +53,6 @@ train_set = []
 test_set = []
 
 for business, reviews in business_split.items():
-	print(business)
 	# print(len(reviews))
 	random = randint(0,4)
 	if random == 0:
