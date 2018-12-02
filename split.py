@@ -12,6 +12,7 @@ from nltk.tokenize import TweetTokenizer
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+from sklearn.preprocessing import normalize
 
 vocabulary = []
 business_list = {}
@@ -93,39 +94,65 @@ print("finish collecting vocabulary")
 
 vectorizer = CountVectorizer(vocabulary=vocabulary)
 tokens = vectorizer.transform(reviews)
+normed_matrix = normalize(tokens, axis=1, norm='l1').toarray()
+
 result_np = np.array(result)
 
-business_split = {}
-i=0
+output = np.hstack((result_np, normed_matrix))
+
+indices = np.argsort(output[:, 0])
+arr_temp = output[indices]
+business_split = np.array_split(arr_temp, np.where(np.diff(arr_temp[:,0])!=0)[0]+1)
+
+# business_split = {}
+# i=0
 # result_np = np.array(result)
 # result_np = np.column_stack(result_np, tokens)
-for text in tokens:
+# for text in normed_matrix:
 # 	text = text.T
 	# tokens = vectorizer.transform(text)
 	# count = Counter(tokens)
 	# temp = []
 	# for word in vocabulary:
 	# 	temp.append(count[word])
-	num_words = np.sum(text)
-	temp = text/num_words
-	output=np.concatenate((result_np[i], temp.toarray()[0]))
-	if result_np[i][0] not in business_split:
-		business_split[result_np[i][0]] = []
-	business_split[result_np[i][0]].append(output)
-	i+=1
+	# num_words = np.sum(text)
+	# temp = text/num_words
+	# output=np.concatenate((result_np[i], text.toarray()[0]))
+	# if result_np[i][0] not in business_split:
+	# 	business_split[result_np[i][0]] = []
+	# business_split[result_np[i][0]].append(output)
+	# i+=1
 
 print("finish tokenization")
 
-train_set = []
-test_set = []
-for business, reviews in business_split.items():
-	if business % 500 == 0:
-		print("spliting on: "+str(business))
+i = 0
+train_set = None
+test_set = None
+
+for business in business_split:
+	if i % 500 == 0:
+		print("spliting on: "+str(i))
 	random = randint(0,4)
 	if random == 0:
-		test_set.extend(reviews)
+		if test_set is None:
+			test_set = business
+		else: 
+			test_set = np.concatenate((test_set,business))
 	else:
-		train_set.extend(reviews)
+		if train_set is None:
+			train_set = business
+		else: 
+			train_set = np.concatenate((train_set,business))
+	i+=1
+
+# for business, reviews in business_split.items():
+# 	if business % 500 == 0:
+# 		print("spliting on: "+str(business))
+# 	random = randint(0,4)
+# 	if random == 0:
+# 		test_set.extend(reviews)
+# 	else:
+# 		train_set.extend(reviews)
 
 np.save("train.npy", np.array(train_set))
 np.save("test.npy", np.array(test_set))
