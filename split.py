@@ -17,6 +17,7 @@ p = preprocess()
 i=0
 for filename in os.listdir(input_directory):
 	if filename.endswith(".json"):
+		print("collecting: "+filename)
 		input_file = open(input_directory+"/"+filename, "r")
 		data = json.loads(input_file.read())
 		for line in data:
@@ -33,6 +34,7 @@ for filename in os.listdir(input_directory):
 			reviews.append(tokens) # array of reviews tokens
 		input_file.close()
 
+print("finish collecting vocabulary")
 bag_words = []
 business_split = {}
 i=0
@@ -49,11 +51,14 @@ for tokens in reviews:
 		business_split[result[i][0]] = []
 	business_split[result[i][0]].append(result[i])
 	i+=1
+
+print("finish tokenization")
+
 train_set = []
 test_set = []
 
 for business, reviews in business_split.items():
-	# print(len(reviews))
+	print("spliting on: "+str(business))
 	random = randint(0,4)
 	if random == 0:
 		test_set.extend(reviews)
