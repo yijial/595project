@@ -3,10 +3,13 @@ import torch
 import torch.optim
 import torch.nn as nn
 import sys
+from sklearn.utils import shuffle
+
 
 def main(file):
 	data = np.load(file)
 	# print(data.shape)
+	shuffle(data)
 	label = torch.from_numpy(data[:,0].reshape(-1,1)).float()
 	features = torch.from_numpy(data[:,1:]).float()
 	# print(label.shape)
@@ -17,9 +20,9 @@ def main(file):
 	# condition of converge
 	thres = 0.0001
 	model = nn.Sequential(nn.Linear(n_in, n_h1),
-			nn.ReLU(),
-			nn.Linear(n_h1, n_h2),
 			nn.Tanh(),
+			nn.Linear(n_h1, n_h2),
+			nn.ReLU(),
 			nn.Linear(n_h2, n_out),
 			nn.Sigmoid())
 
@@ -28,15 +31,15 @@ def main(file):
 
 	prev_loss = 0
 
-	for epoch in range(1000):
+	for epoch in range(10000):
 		y_pred = model(features)
 
 		loss = criterion(y_pred, label)
 		if(epoch % 100 == 0):
 			print('epoch: ', epoch,' loss: ', loss.item())
 
-		if abs(prev_loss - loss.item()) <= thres:
-			break
+		# if abs(prev_loss - loss.item()) <= thres:
+		# 	break
 
 		prev_loss = loss.item()
 
