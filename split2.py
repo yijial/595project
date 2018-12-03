@@ -4,8 +4,6 @@ import math
 import re
 import string
 from random import randint
-from collections import Counter
-from preprocess import preprocess
 import json
 import numpy as np
 from nltk.tokenize import TweetTokenizer
@@ -13,6 +11,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.preprocessing import normalize
+from scipy import sparse
 
 vocabulary = []
 business_list = {}
@@ -110,14 +109,18 @@ for business, features in business_split.items():
     text = features["text"]
     print(len(text))
     random = randint(0,4)
-    if random == 0 and test_set is not None and len(test_set)+len(text) > 10000:
+    if random == 0 and test_set is not None and len(test_set)+len(text) > 1000:
         print("save test")
-        np.save("test_"+str(test_idx)+".npy", test_set)
+        # np.save("test_"+str(test_idx)+".npy", test_set)
+        test_csr_matrix = sparse.csr_matrix(test_set)
+        sparse.save_npz("test_"+str(test_idx)+".npz", test_csr_matrix)
         test_set = None
         test_idx+=1
-    elif random != 0 and train_set is not None and len(train_set)+len(text) > 10000:
+    elif random != 0 and train_set is not None and len(train_set)+len(text) > 1000:
         print("save train")
-        np.save("train_"+str(train_idx)+".npy", train_set)
+        # np.save("train_"+str(train_idx)+".npy", train_set)
+        train_csr_matrix = sparse.csr_matrix(train_set)
+        sparse.save_npz("train_"+str(train_idx)+".npz", train_csr_matrix)
         train_set = None
         train_idx+=1
     
@@ -136,5 +139,5 @@ for business, features in business_split.items():
         else: 
             train_set = np.concatenate((train_set,output))
 
-np.save("train.npy", np.array(train_set))
-np.save("test.npy", np.array(test_set))
+sparse.save_npz("train.npz", sparse.csr_matrix(train_set))
+sparse.save_npz("test.npz", sparse.csr_matrix(test_set))
