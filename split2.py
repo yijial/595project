@@ -16,7 +16,7 @@ from sklearn.preprocessing import normalize
 
 vocabulary = []
 business_list = {}
-input_directory = "../json"
+input_directory = "../toronto"
 reviews = []
 result = []
 business_split = {}
@@ -101,14 +101,29 @@ vectorizer = CountVectorizer(vocabulary=vocabulary)
 
 test_set = None
 train_set = None
+test_idx = 0
+train_idx = 0
 for business, features in business_split.items():
     if business % 500 == 0:
         print("spliting on: "+str(business))
     labels = np.array(features["labels"])
     text = features["text"]
+    print(len(text))
     random = randint(0,4)
+    if random == 0 and test_set is not None and len(test_set)+len(text) > 10000:
+        print("save test")
+        np.save("test_"+str(test_idx)+".npy", test_set)
+        test_set = None
+        test_idx+=1
+    elif random != 0 and train_set is not None and len(train_set)+len(text) > 10000:
+        print("save train")
+        np.save("train_"+str(train_idx)+".npy", train_set)
+        train_set = None
+        train_idx+=1
+    
     tokens = vectorizer.transform(text).toarray()
     normed_tokens = normalize(tokens, axis=1, norm='l1')
+    print(normed_tokens.shape)
     output = np.hstack((labels, normed_tokens))
     if random == 0:
         if test_set is None:
