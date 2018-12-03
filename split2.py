@@ -139,5 +139,5 @@ for business, features in business_split.items():
         else: 
             train_set = np.concatenate((train_set,output))
 
-np.save("train.npy", np.array(train_set))
-np.save("test.npy", np.array(test_set))
+sparse.save_npz("train.npz", sparse.csr_matrix(train_set))
+sparse.save_npz("test.npz", sparse.csr_matrix(test_set))
