@@ -7,12 +7,11 @@ import os
 from sklearn.utils import shuffle
 from scipy import sparse
 
-# directory = "toronto_npz/"
-
 
 def main(dir):
+	dim_data = sparse.load_npz(dir + '/' + "train_0.npz").toarray()
 	# dimensions of the nn
-	n_in, n_h1, n_h2, n_out = 42288, 100, 100, 1
+	n_in, n_h1, n_h2, n_out = dim_data.shape[1] - 2, 100, 100, 1
 	# condition of converge
 	thres = 0.001
 	model = nn.Sequential(nn.Linear(n_in, n_h1),
@@ -78,7 +77,7 @@ def main(dir):
 	output = np.concatenate((bid, standard, pred), axis=1)
 	csr_matrix = sparse.csr_matrix(output)
 	print(output.shape)
-	sparse.save_npz("nn_output.npz", csr_matrix)
+	sparse.save_npz("nn_output_" + dir + ".npz", csr_matrix)
 
 
 if __name__ == "__main__":
