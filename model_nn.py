@@ -7,12 +7,11 @@ import os
 from sklearn.utils import shuffle
 from scipy import sparse
 
-# directory = "toronto_npz/"
-
 
 def main(dir):
+	dim_data = sparse.load_npz(dir + '/' + "train_0.npz").toarray()
 	# dimensions of the nn
-	n_in, n_h1, n_h2, n_out = 42288, 100, 100, 1
+	n_in, n_h1, n_h2, n_out = dim_data.shape[1] - 2, 1500, 1500, 1
 	# condition of converge
 	thres = 0.001
 	model = nn.Sequential(nn.Linear(n_in, n_h1),
@@ -40,7 +39,7 @@ def main(dir):
 			features = torch.from_numpy(data[:, 2:]).float()
 			# print(label.shape)
 			# print(features.shape)
-			for epoch in range(100):
+			for epoch in range(50):
 				y_pred = model(features)
 
 				loss = criterion(y_pred, label)
@@ -75,10 +74,10 @@ def main(dir):
 			pred = np.concatenate((pred, label_pred), axis=0)
 
 	# format: golden label, predicted, business_id
-	output = np.concatenate((bid, standard, pred), axis=1)
+	output = np.concatenate((standard, pred, bid), axis=1)
 	csr_matrix = sparse.csr_matrix(output)
 	print(output.shape)
-	sparse.save_npz("nn_output.npz", csr_matrix)
+	sparse.save_npz("nn_output_" + dir + ".npz", csr_matrix)
 
 
 if __name__ == "__main__":
