@@ -1,15 +1,17 @@
 import os
 import numpy as np
 from scipy import stats
+from scipy import sparse
 import math
 
-directory = "../toronto_npz/"
+# directory = "toronto_npz/"
+directory = "."
 tau_file = open("kendall_tau_score.txt","w")
 scores = []
 
 for filename in os.listdir(directory):
-	if filename == "output.npy":
-		baseline_data = np.load(directory + filename)
+	if filename == "nn_output_toronto_npz.npz":
+		baseline_data = sparse.load_npz(filename).toarray()
 		business_dict = dict() 
 		# business_dict[business_id] = [[useful_counts...], [scores...]]
 
@@ -40,5 +42,6 @@ for filename in os.listdir(directory):
 			if not (math.isnan(tau)):
 				tau_file.write(str(business_id)+"\t"+str(tau)+"\n")
 				scores.append(tau)
+print(len(scores))
 print("Average kendall-tau score: ", sum(scores) / len(scores))
 tau_file.close()
