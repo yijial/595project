@@ -29,7 +29,7 @@ def train_model(model, criterion, optimizer, directory):
 				loss = criterion(y_pred, label)
 				if(i % 1 == 0):
 					print('iteration: ', i,' loss: ', loss.item())
-					print(y_pred.detach()[1:10])
+					# print(y_pred.detach()[1:10])
 					# for param in model.parameters():
 					# 	print(param.detach())
 					# print(model.parameters().data())
@@ -43,8 +43,9 @@ def train_model(model, criterion, optimizer, directory):
 				optimizer.step()
 
 
-def main(directory):
-	dim_data = sparse.load_npz(directory + '/' + "train_0.npz").toarray()
+def main(bow_dir, cityname):
+	directory = bow_dir+"/"+cityname
+	dim_data = sparse.load_npz(directory + '/' + "train.npz").toarray()
 	# dimensions of the nn
 	n_in, n_h1, n_h2, n_out = dim_data.shape[1] - 2, 1000, 1000, 1
 	# condition of converge
@@ -83,12 +84,10 @@ def main(directory):
 
 	# format: golden label, predicted, business_id
 	output = np.concatenate((standard, pred, bid), axis=1)
-	# csr_matrix = sparse.csr_matrix(output)
 	print(output.shape)
-	# sparse.save_npz("nn_output_" + directory + ".npz", csr_matrix)
-	np.save("nn_output_" + directory + ".npy", output)
+	np.save("prediction_nn_" + cityname + ".npy", output)
 
 
 if __name__ == "__main__":
-	main(sys.argv[1])
+	main(sys.argv[1],sys.argv[2])
 
