@@ -10,8 +10,8 @@ tau_file = open("kendall_tau_score.txt","w")
 scores = []
 
 for filename in os.listdir(directory):
-	if filename == "nn_output_toronto_npz.npz":
-		baseline_data = sparse.load_npz(filename).toarray()
+	if filename == "nn_output_toronto_npz.npy":
+		baseline_data = np.load(filename)
 		business_dict = dict() 
 		# business_dict[business_id] = [[useful_counts...], [scores...]]
 

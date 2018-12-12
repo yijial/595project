@@ -61,7 +61,7 @@ def main(directory):
 	optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 	# prev_loss = 0
-	for epoch in range(5):
+	for epoch in range(10):
 		train_model(model, criterion, optimizer, directory)
 
 	standard = np.empty((0,1))
@@ -83,9 +83,10 @@ def main(directory):
 
 	# format: golden label, predicted, business_id
 	output = np.concatenate((standard, pred, bid), axis=1)
-	csr_matrix = sparse.csr_matrix(output)
+	# csr_matrix = sparse.csr_matrix(output)
 	print(output.shape)
-	sparse.save_npz("nn_output_" + directory + ".npz", csr_matrix)
+	# sparse.save_npz("nn_output_" + directory + ".npz", csr_matrix)
+	np.save("nn_output_" + directory + ".npy", output)
 
 
 if __name__ == "__main__":
