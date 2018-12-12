@@ -5,7 +5,7 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
 *raw data is not included due to the size and difficulty of upload. Data after preprocessing is included
 
 ## Preprocessing
-* Step 1 and 2 can be skipped. Due to dataset size, raw data is not included in the folder. Only preprocessed data is provided.
+\* Step 1 and 2 can be skipped. Due to dataset size, raw data is not included in the folder. Only preprocessed data is provided.
 1. 	Read raw yelp_academic_dataset_review.json and yelp_academic_dataset_business.json, split reviews and businesses based on city and extract attributes(review text, business id, business total review count) and labels(review useful vote). Output files reviews_cityname.json in directory. 
 	`python extract.py yelp_raw_json_dir filtered_city_dir`
 
@@ -25,3 +25,6 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
 
 4. 	Calculate Kendall's Tau Coefficient. 
 	`python ktau.py filename`
+
+5.	Calculate Root Mean Squared Logarithmic Error. 
+	`python rmsle.py filename`
