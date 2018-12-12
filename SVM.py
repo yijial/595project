@@ -10,34 +10,11 @@ def main():
     dir = "../toronto_npz/"
     # dir = "../lasvegas_npz/"
 
-    countClass = np.load(dir + "toronto_useful_classes.npy")
-    # countClass = np.load(dir + "/lasvegas_useful_classes.npy")
-    weight = {}
-    for item in countClass:
-        if item not in weight:
-            weight[item] = 1
-        else:
-            weight[item] += 1
-
-    countClass = np.unique(countClass)
-
     rbf_feature = RBFSampler(gamma=0.1)
 
-    for key, value in weight.items():
-        if value < 10:
-            weight[key] = 1
-        else:
-            weight[key] = 1 / weight[key]
-
-    print(weight)
-    # clf = linear_model.SGDClassifier(loss='hinge', penalty='l2', max_iter=100, 
-    #     eta0=0.001, learning_rate='optimal', class_weight=None)
-
     clf = linear_model.SGDRegressor(penalty='l2', max_iter=100, 
-        eta0=0.005, learning_rate='adaptive')
+        eta0=0.01, learning_rate='adaptive')
 
-    print(countClass)
-    print("Number of unique classes: " + str(len(countClass)))
     i = 0
 
     for filename in os.listdir(dir):

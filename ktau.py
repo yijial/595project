@@ -36,6 +36,7 @@ for filename in os.listdir(directory):
 				# print(pred_ranking)
 			else:
 				tau = 1
+				continue
 			# business_id, tau
 			if not (math.isnan(tau)):
 				tau_file.write(str(business_id)+"\t"+str(tau)+"\n")
