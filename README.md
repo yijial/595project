@@ -1,5 +1,8 @@
 # Predicting and Ranking Yelp Reviews By Usefulness
 
+## Dependecy
+
+
 ## Data Collection
 Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset) 
 
@@ -11,6 +14,7 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
 2. 	Preprocess reviews in Las Vegas and Toronto with tokenization and stemmization. 
  - Run preprocess_bag_of_words.py for transforming reviews into bag-of-words vectors, and outputing files train_x.npz for training set and files test_x.npz for testing set in directory. 
  	`python preprocess_bag_of_words.py filtered_city_dir cityname bow_dir`
+
  - Run preprocess_sequence.py for LSTM to transform reviews into sequence tokens, with each word corresponds to a sequence words. Output x_train.npy, x_test.npy, y_train.npy, y_test.npy, word_index.npy, bid_test.npy in directory. 
 	`python preprocess_sequence.py filtered_city_dir cityname seq_dir`
 
