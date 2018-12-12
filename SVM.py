@@ -6,9 +6,10 @@ import os
 import sys
 from sklearn.kernel_approximation import RBFSampler
 
-def main():
-    dir = "../toronto_npz/"
+def main(bow_dir, cityname):
+    # dir = "../toronto_npz/"
     # dir = "../lasvegas_npz/"
+    dir = bow_dir+"/"+cityname+"/"
 
     rbf_feature = RBFSampler(gamma=0.1)
 
@@ -72,7 +73,7 @@ def main():
             output = np.concatenate((testLabel, predict, test_Bid), axis=1)
             outputAll = np.concatenate((outputAll, output), axis=0)
         
-    np.save(dir + "output.npy", np.array(outputAll))
+    np.save("prediction_svm_" + cityname + ".npy", np.array(outputAll))
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1],sys.argv[2])
