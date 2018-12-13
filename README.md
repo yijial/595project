@@ -35,6 +35,7 @@ Note: <cityname> is either toronto or lasvegas
 
 4.	LSTM with regression. Output prediction_lstm_reg_<cityname>.npy
  	`python lstm_reg.py seq_dir <cityname>`
+	
 Note: <cityname> is either toronto or lasvegas
 	
 ## Evaluation
@@ -43,4 +44,5 @@ Note: <cityname> is either toronto or lasvegas
 
 2.	Calculate Root Mean Squared Logarithmic Error. 
 	`python rmsle.py <filename>`
+	
 Note: <filename> are those model output prediction_<model>_<cityname>.npy files
