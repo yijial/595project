@@ -24,18 +24,17 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
 Note: \<cityname\> is either toronto or lasvegas
 
 ## ML model
-1.	SVM. Output prediction_svm_<cityname>.npy
+1.	SVM. Output prediction_svm_\<cityname\>.npy
  	`python SVM.py bow_dir <cityname>`
 
-2.	Neural Network. Output prediction_nn_<cityname>.npy
+2.	Neural Network. Output prediction_nn_\<cityname\>.npy
  	`python model_nn.py bow_dir <cityname>`
 
-3.	LSTM with classification. Output prediction_lstm_class_<cityname>.npy
+3.	LSTM with classification. Output prediction_lstm_class_\<cityname\>.npy
  	`python lstm_class.py seq_dir <cityname>`
 
-4.	LSTM with regression. Output prediction_lstm_reg_<cityname>.npy
+4.	LSTM with regression. Output prediction_lstm_reg_\<cityname\>.npy
  	`python lstm_reg.py seq_dir <cityname>`
-	
 Note: \<cityname\> is either toronto or lasvegas
 	
 ## Evaluation
@@ -44,5 +43,4 @@ Note: \<cityname\> is either toronto or lasvegas
 
 2.	Calculate Root Mean Squared Logarithmic Error. 
 	`python rmsle.py <filename>`
-	
 Note: \<filename\> are those model output prediction_\<model\>_\<cityname\>.npy files
