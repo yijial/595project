@@ -13,7 +13,7 @@
 Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset) 
 
 ## Preprocessing
-\* Preprocessing can be skipped. Due to the size and difficulty of upload, raw data is not included in the folder. Only preprocessed data is provided.
+\* Preprocessing can be skipped. Preprocessed data is provided.
 1. 	Read raw yelp_academic_dataset_review.json and yelp_academic_dataset_business.json, split reviews and businesses based on city and extract attributes(review text, business id, business total review count) and labels(review useful vote). Output files reviews_cityname.json in filtered_city_dir. 
 	`python extract.py yelp_raw_json_dir filtered_city_dir`
 
