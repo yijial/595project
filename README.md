@@ -21,7 +21,11 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
  - Run preprocess_sequence.py for LSTM to transform reviews into sequence tokens, with each word corresponds to a sequence words. Output x_train.npy, x_test.npy, y_train.npy, y_test.npy, word_index.npy, bid_test.npy in seq_dir. 
 	`python preprocess_sequence.py filtered_city_dir <cityname> seq_dir`
 	
+<<<<<<< HEAD
 Note: \<cityname\> is either toronto or lasvegas
+=======
+Note: <cityname> is either toronto or lasvegas
+>>>>>>> eaa3bc5e43d1a09aded6703bd83cf22ecf87d8d8
 
 ## ML model
 1.	SVM. Output prediction_svm_<cityname>.npy
@@ -35,7 +39,12 @@ Note: \<cityname\> is either toronto or lasvegas
 
 4.	LSTM with regression. Output prediction_lstm_reg_<cityname>.npy
  	`python lstm_reg.py seq_dir <cityname>`
+<<<<<<< HEAD
 Note: \<cityname\> is either toronto or lasvegas
+=======
+	
+Note: <cityname> is either toronto or lasvegas
+>>>>>>> eaa3bc5e43d1a09aded6703bd83cf22ecf87d8d8
 	
 ## Evaluation
 1. 	Calculate Kendall's Tau Coefficient. 
@@ -43,4 +52,9 @@ Note: \<cityname\> is either toronto or lasvegas
 
 2.	Calculate Root Mean Squared Logarithmic Error. 
 	`python rmsle.py <filename>`
+<<<<<<< HEAD
 Note: <filename> are those model output prediction_\<model\>_\<cityname\>.npy files
+=======
+	
+Note: <filename> are those model output prediction_<model>_<cityname>.npy files
+>>>>>>> eaa3bc5e43d1a09aded6703bd83cf22ecf87d8d8
