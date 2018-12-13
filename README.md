@@ -17,7 +17,7 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
 1. 	Read raw yelp_academic_dataset_review.json and yelp_academic_dataset_business.json, split reviews and businesses based on city and extract attributes(review text, business id, business total review count) and labels(review useful vote). Output files reviews_cityname.json in filtered_city_dir. 
 	`python extract.py yelp_raw_json_dir filtered_city_dir`
 
-2. 	Preprocess reviews in Las Vegas and Toronto with tokenization and stemmization. 
+2. 	Preprocess reviews in Las Vegas and Toronto with tokenization and stemming. 
  - Run preprocess_bag_of_words.py for transforming reviews into bag-of-words vectors, and outputing files train_x.npz for training set and files test_x.npz for testing set in bow_dir. 
  	`python preprocess_bag_of_words.py filtered_city_dir <cityname> bow_dir`
 
