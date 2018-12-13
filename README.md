@@ -16,27 +16,31 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
 
 2. 	Preprocess reviews in Las Vegas and Toronto with tokenization and stemmization. 
  - Run preprocess_bag_of_words.py for transforming reviews into bag-of-words vectors, and outputing files train_x.npz for training set and files test_x.npz for testing set in bow_dir. 
- 	`python preprocess_bag_of_words.py filtered_city_dir cityname bow_dir`
+ 	`python preprocess_bag_of_words.py filtered_city_dir <cityname> bow_dir`
 
  - Run preprocess_sequence.py for LSTM to transform reviews into sequence tokens, with each word corresponds to a sequence words. Output x_train.npy, x_test.npy, y_train.npy, y_test.npy, word_index.npy, bid_test.npy in seq_dir. 
-	`python preprocess_sequence.py filtered_city_dir cityname seq_dir`
+	`python preprocess_sequence.py filtered_city_dir <cityname> seq_dir`
+	
+Note: \<cityname\> is either toronto or lasvegas
 
 ## ML model
-1.	SVM. Output prediction_svm_cityname.npy
- 	`python SVM.py bow_dir cityname`
+1.	SVM. Output prediction_svm_<cityname>.npy
+ 	`python SVM.py bow_dir <cityname>`
 
-2.	Neural Network. Output prediction_nn_cityname.npy
- 	`python model_nn.py bow_dir cityname`
+2.	Neural Network. Output prediction_nn_<cityname>.npy
+ 	`python model_nn.py bow_dir <cityname>`
 
-3.	LSTM with classification. Output prediction_lstm_class_cityname.npy
- 	`python lstm_class.py seq_dir cityname`
+3.	LSTM with classification. Output prediction_lstm_class_<cityname>.npy
+ 	`python lstm_class.py seq_dir <cityname>`
 
-4.	LSTM with regression. Output prediction_lstm_reg_cityname.npy
- 	`python lstm_reg.py seq_dir cityname`
-
+4.	LSTM with regression. Output prediction_lstm_reg_<cityname>.npy
+ 	`python lstm_reg.py seq_dir <cityname>`
+Note: \<cityname\> is either toronto or lasvegas
+	
 ## Evaluation
 1. 	Calculate Kendall's Tau Coefficient. 
-	`python ktau.py filename`
+	`python ktau.py <filename>`
 
 2.	Calculate Root Mean Squared Logarithmic Error. 
-	`python rmsle.py filename`
+	`python rmsle.py <filename>`
+Note: <filename> are those model output prediction_\<model\>_\<cityname\>.npy files
