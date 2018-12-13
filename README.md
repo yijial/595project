@@ -35,12 +35,7 @@ Note: \<cityname\> is either toronto or lasvegas
 
 4.	LSTM with regression. Output prediction_lstm_reg_<cityname>.npy
  	`python lstm_reg.py seq_dir <cityname>`
-<<<<<<< HEAD
 Note: \<cityname\> is either toronto or lasvegas
-=======
-	
-Note: <cityname> is either toronto or lasvegas
->>>>>>> eaa3bc5e43d1a09aded6703bd83cf22ecf87d8d8
 	
 ## Evaluation
 1. 	Calculate Kendall's Tau Coefficient. 
@@ -48,9 +43,4 @@ Note: <cityname> is either toronto or lasvegas
 
 2.	Calculate Root Mean Squared Logarithmic Error. 
 	`python rmsle.py <filename>`
-<<<<<<< HEAD
 Note: <filename> are those model output prediction_\<model\>_\<cityname\>.npy files
-=======
-	
-Note: <filename> are those model output prediction_<model>_<cityname>.npy files
->>>>>>> eaa3bc5e43d1a09aded6703bd83cf22ecf87d8d8
