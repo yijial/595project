@@ -2,8 +2,11 @@
 
 ## Dependecy
 `python3.6 -m venv env`
+
 `source env/bin/activate`
+
 `pip install keras nltk numpy torch sklearn scipy scikit-learn wheel` 
+
 `python -m pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.11.0-py3-none-any.whl`
 
 ## Data Collection
@@ -21,7 +24,7 @@ Downloaded from [Yelp Academic Dataset](https://www.yelp.com/dataset)
  - Run preprocess_sequence.py for LSTM to transform reviews into sequence tokens, with each word corresponds to a sequence words. Output x_train.npy, x_test.npy, y_train.npy, y_test.npy, word_index.npy, bid_test.npy in seq_dir. 
 	`python preprocess_sequence.py filtered_city_dir <cityname> seq_dir`
 	
-Note: \<cityname\> is either toronto or lasvegas
+	Note: \<cityname\> is either toronto or lasvegas
 
 ## ML model
 1.	SVM. Output prediction_svm_\<cityname\>.npy
@@ -35,7 +38,8 @@ Note: \<cityname\> is either toronto or lasvegas
 
 4.	LSTM with regression. Output prediction_lstm_reg_\<cityname\>.npy
  	`python lstm_reg.py seq_dir <cityname>`
-Note: \<cityname\> is either toronto or lasvegas
+	
+	Note: \<cityname\> is either toronto or lasvegas
 	
 ## Evaluation
 1. 	Calculate Kendall's Tau Coefficient. 
@@ -43,4 +47,5 @@ Note: \<cityname\> is either toronto or lasvegas
 
 2.	Calculate Root Mean Squared Logarithmic Error. 
 	`python rmsle.py <filename>`
-Note: \<filename\> are those model output prediction_\<model\>_\<cityname\>.npy files
+	
+	Note: \<filename\> are those model output prediction_\<model\>_\<cityname\>.npy files
